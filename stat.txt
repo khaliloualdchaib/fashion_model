@@ -1,0 +1,7 @@
+style:
+Hamming Loss: 0.048177083333333336
+Precision (Micro): 0.8314606741573034
+Recall (Micro): 0.7708333333333334
+F1-Score (Micro): 0.8
+
+
