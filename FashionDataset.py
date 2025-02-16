@@ -3,7 +3,6 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from PIL import Image
 import pandas as pd
-from torchvision.transforms import RandomResizedCrop, RandomPerspective, RandomErasing
 
 class FashionDataset(Dataset):
     def __init__(self, csv_file, transform=None):
@@ -43,5 +42,5 @@ transform = transforms.Compose([
     transforms.RandomHorizontalFlip(p=0.5),
     transforms.RandomRotation(degrees=10),
     transforms.ToTensor(),
-    transforms.Normalize(mean=[0.81689762, 0.8230991, 0.84754206], std=[0.28189409, 0.278586, 0.25931382]),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std= [0.229, 0.224, 0.225]),
 ])

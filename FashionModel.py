@@ -8,11 +8,10 @@ class FashionModel(nn.Module):
         super(FashionModel, self).__init__()
 
         # Load EfficientNet from torchvision
-        # self.features = models.efficientnet_b1(weights=EfficientNet_B1_Weights.IMAGENET1K_V1)
-        self.features = models.resnet34(weights=models.ResNet34_Weights.IMAGENET1K_V1)
+        self.efficientnet = models.efficientnet_b1(weights=EfficientNet_B1_Weights.IMAGENET1K_V1)
         
         # Remove the classifier head (fc layer)
-        self.features.classifier = nn.Identity()
+        self.efficientnet.classifier = nn.Identity()
 
         # Brand feature processing
         self.brand_fc = nn.Sequential(
@@ -23,23 +22,18 @@ class FashionModel(nn.Module):
             nn.ReLU(),
             nn.Dropout(0.3),
         )
-        #Combined FC layer
+        # Combined FC layer
         self.combined_fc = nn.Sequential(
-            nn.Linear(1000 + 64, 512),  # 1280 from EfficientNet-b0 output
+            nn.Linear(1280 + 64, 512),  # 1280 from EfficientNet-b0 output
             nn.ReLU(),
             nn.Dropout(0.3),
             nn.Linear(512, num_classes),
         )
 
     def forward(self, image, brand):
-        image_features = self.features(image)  # Extract image features
+        image_features = self.efficientnet(image)  # Extract image features
         brand_features = self.brand_fc(brand)  # Process brand features
 
         combined_features = torch.cat((image_features, brand_features), dim=1)  # Concatenate features
         output = self.combined_fc(combined_features)  # Final prediction
         return output
-
-# b0_dropout_50  Test Accuracy: 6.94%
-# b0_transformation_50 Test Accuracy: 4.17%
-# b1 Test Test Accuracy: 5.56%
-# resnet Test Accuracy: 4.17%
