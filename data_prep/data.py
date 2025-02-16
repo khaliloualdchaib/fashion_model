@@ -44,7 +44,7 @@ def clean_data(csv_file, output_csv):
     df = pd.read_csv(csv_file )
 
     #drop all unnecessary columns
-    columns_to_keep = ['category', 'style', 'tops_fit', 'bottoms_fit', 'sleeve_type', 'pattern', 'more_attributes', 'image_url_1', 'brand']
+    columns_to_keep = ['barcode', 'style', 'tops_fit', 'bottoms_fit', 'sleeve_type', 'pattern', 'more_attributes', 'image_url_1', 'brand']
     df = df[columns_to_keep]
 
     #drop duplicate rows
@@ -59,8 +59,6 @@ def clean_data(csv_file, output_csv):
 
     #drop image_url_1 column
     df = df.drop(columns=["image_url_1"])
-
-    df = df.drop(columns=["category"])
 
     df.to_csv(output_csv, index=False)
 

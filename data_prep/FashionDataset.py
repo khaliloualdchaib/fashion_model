@@ -11,7 +11,7 @@ class FashionDataset(Dataset):
 
         self.label_columns = [
             col for col in self.data.columns
-            if col != "image_path" and not col.startswith("brand_")
+            if col != "image_path" and not col.startswith("brand_") and col != "barcode"
         ]
 
         self.brand_columns = [
@@ -26,6 +26,7 @@ class FashionDataset(Dataset):
     def __getitem__(self, idx):
         img_path = self.data.iloc[idx]["image_path"]
         image = Image.open(img_path)
+        barcode = self.data.iloc[idx]["barcode"]
 
         if self.transform:
             image = self.transform(image)
@@ -33,8 +34,9 @@ class FashionDataset(Dataset):
         labels = torch.tensor(self.data.iloc[idx][self.label_columns].astype(float).values, dtype=torch.float32)
 
         brand = torch.tensor(self.data.iloc[idx][self.brand_columns].astype(float).values, dtype=torch.float32)
+        
 
-        return image, brand, labels
+        return image, brand, labels, barcode
     
 
 
