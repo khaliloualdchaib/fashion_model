@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation-app-load-balancer
+spec:
+  selector:
+    app: recommendation-app-pod
+  ports:
+    - port: 8003
+      targetPort: 8003
+  type: LoadBalancer

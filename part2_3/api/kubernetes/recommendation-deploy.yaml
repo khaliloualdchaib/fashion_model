@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendation-app-pod
+  template:
+    metadata:
+      labels:
+        app: recommendation-app-pod
+    spec:
+      containers:
+        - name: recommendation-app-container
+          image: recommendation:v1
+          ports:
+            - containerPort: 8003
+          imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "350Mi"
+              cpu: "128m"
+            requests:
+              memory: "200Mi"
+              cpu: "80m"

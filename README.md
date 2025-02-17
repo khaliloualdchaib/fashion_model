@@ -31,7 +31,7 @@ You are provided with a CSV file containing a dataset of fashion items. Each row
 1. Develop a recommendation algorithm that ranks clothing items based on their suitability for different body types.  
 2. The system should support recommendations for the following three body types:  
    - **Hourglass**  
-   - **Rectangle**  
+   - **Rectangle**
    - **Apple**  
 3. Define a logic for how different attributes (e.g., fit, neckline type, length) influence the suitability of clothing for each body type.  
 

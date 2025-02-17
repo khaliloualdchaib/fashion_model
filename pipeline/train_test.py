@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import hamming_loss
 import pandas as pd
 from tqdm import tqdm
-from sklearn.preprocessing import MultiLabelBinarizer
 
 def train(model, num_epochs, optimizer, loss_function, train_loader, val_loader, save=True, filename="model"):
     train_losses = []
