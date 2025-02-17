@@ -1,6 +1,6 @@
 import torch
 import matplotlib.pyplot as plt
-from sklearn.metrics import hamming_loss
+from sklearn.metrics import hamming_loss, precision_score, recall_score, f1_score
 import pandas as pd
 from tqdm import tqdm
 
@@ -101,12 +101,21 @@ def test(model, loss_function, test_loader, dataset, columns, model_file="model"
     all_labels = torch.cat(all_labels)
     all_predictions = torch.cat(all_predictions)
 
-    hamming_loss_value = hamming_loss(all_labels.numpy(), all_predictions.numpy())
+    # Convert to NumPy for sklearn metrics
+    y_true = all_labels.numpy()
+    y_pred = all_predictions.numpy()
 
-    # Compute final metrics
-    test_loss /= len(test_loader)
+    # Calculate Metrics
+    hamming_loss_value = hamming_loss(y_true, y_pred)
     accuracy = 100 * correct / total
+    precision = precision_score(y_true, y_pred, average="samples", zero_division=0)
+    recall = recall_score(y_true, y_pred, average="samples", zero_division=0)
+    f1 = f1_score(y_true, y_pred, average="samples", zero_division=0)
 
-    print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {accuracy:.2f}%")
+    print(f"Test Accuracy: {accuracy:.2f}%")
     print(f"Hamming Loss: {hamming_loss_value:.4f}")
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall: {recall:.4f}")
+    print(f"F1 Score: {f1:.4f}")
+
     results2csv(all_barcodes, all_predictions, dataset, columns)

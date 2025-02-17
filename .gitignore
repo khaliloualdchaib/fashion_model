@@ -1,5 +1,5 @@
 # Ignore all 'images' directories
-/images/
+part1/images/
 
 # Ignore all '__pycache__' directories
-/__pycache__/
+part1/__pycache__/
