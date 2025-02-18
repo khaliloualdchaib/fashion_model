@@ -4,7 +4,7 @@ import torchvision.models as models
 from torchvision.models import EfficientNet_B1_Weights # Import weights
 
 class FashionModel(nn.Module):
-    def __init__(self, num_brand_features, num_classes):
+    def __init__(self, num_brand_cols, num_classes):
         super(FashionModel, self).__init__()
 
         # Load EfficientNet from torchvision
@@ -15,7 +15,7 @@ class FashionModel(nn.Module):
 
         # Brand feature processing
         self.brand_fc = nn.Sequential(
-            nn.Linear(num_brand_features, 128),
+            nn.Linear(num_brand_cols, 128),
             nn.ReLU(),
             nn.Dropout(0.3),
             nn.Linear(128, 64),

@@ -10,6 +10,7 @@ IMAGE_FOLDER = "images"
 TARGET_SIZE = (300, 300)
 
 def resize_with_padding(image, target_size=TARGET_SIZE, fill_color=(255, 255, 255)):
+    # Image.LANCZOS used for high-quality downscaling of images
     image.thumbnail((target_size[0], target_size[1]), Image.LANCZOS)
     new_img = Image.new("RGB", target_size, fill_color)
     paste_x = (target_size[0] - image.size[0]) // 2
